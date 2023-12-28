@@ -1,0 +1,50 @@
+body{
+    background-color: #ffffff;
+    color: white;
+}
+
+.section_timer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.timer_container{
+    width: 50vw;
+    height: 80vh;
+    background-color: #4d4e47;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.timer_circle{
+    background-color: #a52222;
+    width: 60%;
+    height: 70%;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.timer_inner_circle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    height: 90%;
+    border-radius: 50%;
+    background-color: #310909;
+}
+
+.timer_inner_value{
+    font-size: 6vw;
+}
+
+
+
+.none{
+   display: none;
+}

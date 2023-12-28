@@ -1,7 +1,7 @@
 import { useReducer } from "react";
 
 
-let InicialState = {timer: "00:30" , minuto: 0, segundo: 30};
+let InicialState = {timer: "25:00" , minuto: 25, segundo: 0};
 
 
 function reducer(state, action){
