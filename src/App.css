@@ -9,6 +9,7 @@ body{
     align-items: center;
     height: 100vh;
 }
+
 .timer_container{
     width: 50vw;
     height: 80vh;
@@ -17,10 +18,11 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
 .timer_circle{
-    background-color: #a52222;
+    background-image: conic-gradient(#a52222 100% , #22a543 0%);
     width: 60%;
     height: 70%;
     border-radius: 50%;
@@ -42,9 +44,9 @@ body{
 .timer_inner_value{
     font-size: 6vw;
 }
-
-
-
-.none{
-   display: none;
+.container_buttons{
+    width: 50%;
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
 }

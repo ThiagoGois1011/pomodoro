@@ -2,10 +2,11 @@ import { useReducer } from "react";
 
 
 let InicialState = {timer: "25:00" , minuto: 25, segundo: 0};
+let DescancoTimer = {timer: "05:00" , minuto: 5, segundo: 0};
+let working = true;
 
 
 function reducer(state, action){
-    console.log(action)
     switch(action.type){
         case "decremento" :{
             const minuto = state.minuto;
@@ -32,6 +33,7 @@ function reducer(state, action){
             }       
         }
         case "resetar":{
+            working = true;
             return InicialState;
         }
         case "editar":{
@@ -44,6 +46,10 @@ function reducer(state, action){
             InicialState = objeto;
             return objeto;
         }
+        case "descanco":{
+            working = false;
+            return DescancoTimer;
+        }
     }
 
 }
@@ -53,5 +59,5 @@ function reducer(state, action){
 export default function useTimer(){
     const [state, dispatch] = useReducer(reducer, InicialState);
 
-    return [state, dispatch];
+    return [state, dispatch, {working, InicialState, DescancoTimer}];
 } 

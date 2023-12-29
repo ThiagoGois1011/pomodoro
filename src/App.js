@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import useTimer from "./hooks/useTimerHook"
 import "./App.css"
 import Button from "./components/Button.js"
@@ -6,65 +6,55 @@ import Button from "./components/Button.js"
 
 function App() {
 
-  const [state, dispatch] = useTimer();
+  const [values, dispatch, stateTimer] = useTimer();
   const ref = useRef();
 
-  if(state.minuto == 0 && state.segundo == 0){
+  const segundosAtuais = values.minuto * 60 + values.segundo;
+  let segundosIniciais = null;
+  let primeira = true
+
+  if(stateTimer.working){
+    segundosIniciais = stateTimer.InicialState.minuto * 60 + stateTimer.InicialState.segundo;
+  }else if(primeira){
+    primeira = false;
+    segundosIniciais = 0;
+  }else{
+    segundosIniciais = stateTimer.DescancoTimer.minuto * 60 + stateTimer.DescancoTimer.segundo;
+  }
+  const porcentagem1 = (segundosAtuais / segundosIniciais) * 100;
+
+  if(values.minuto == 0 && values.segundo == 0){
     clearInterval(ref.current);
-    console.log("chamando intervalo" + ref.current);
+    dispatch({ type: "descanco" });     
   }
   
   return (
     <section className="section_timer">
 
       <div className="timer_container">
-        <div className="timer_circle">
+        <div className="timer_circle" style={{backgroundImage: `conic-gradient(#a52222 ${segundosAtuais? porcentagem1: 0}% , #22a543 0%)`}}>
           <div className="timer_inner_circle">
-            <p className="timer_inner_value">{state.timer}</p>
+            <p className="timer_inner_value">{values.timer}</p>
           </div>
         </div>
         <div className="container_buttons">
           <Button onClick={()=>{
-            console.log("clicked")
-          }}>edit</Button>
+            ref.current = setInterval(() => {
+              dispatch({ type: "decremento" });       
+             }, 10);
+          }}>Iniciar</Button>
+
+          <Button onClick={()=>{
+            clearInterval(ref.current);
+          }}>Pausar</Button>
+
+          <Button onClick={()=>{
+             clearInterval(ref.current);
+             dispatch({ type: "resetar" });
+          }}>Resetar</Button>
         </div>
 
-      </div>
-
-       
-
-
-       <div className="none">
-       <button onClick={() =>{
-         ref.current = setInterval(() => {
-          dispatch({ type: "decremento" });       
-         }, 1000);
-       }}> Iniciar</button>
-
-
-       <button onClick={() =>{
-        clearInterval(ref.current);
-       }}>pausar</button>
-
-       <button onClick={()=>{
-        clearInterval(ref.current);
-        dispatch({ type: "resetar" });
-       }}>reset</button>
-
-
-       <button onClick={()=>{
-        const campoM = document.getElementById("minuto");
-        const campoS = document.getElementById("segundo");
-          dispatch({ type: "editar",
-            campos: [campoM.value, campoS.value] });
-       }}>edit</button>
-
-
-       <label>minuto</label>
-       <input type="number" id="minuto"/>
-       <label>segundo</label>
-       <input type="number" id="segundo"/>
-       </div>
+      </div>       
     </section>
   );
 }
