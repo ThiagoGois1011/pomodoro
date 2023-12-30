@@ -11,8 +11,8 @@ body{
 }
 
 .timer_container{
-    width: 50vw;
-    height: 80vh;
+    width: 60vw;
+    height: 90vh;
     background-color: #4d4e47;
     border-radius: 20px;
     display: flex;
@@ -39,9 +39,11 @@ body{
     height: 90%;
     border-radius: 50%;
     background-color: #310909;
+    flex-direction: column;
 }
 
 .timer_inner_value{
+    margin: 0 0 20px 0;
     font-size: 6vw;
 }
 .container_buttons{
