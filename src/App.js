@@ -18,8 +18,13 @@ function App() {
     event.target.style.backgroundColor = "#E2E8CE";
   }
 
+  
+
+  function getControls(play,pause){
+    setMetodosPlayer({Play: play, Pause: pause});
+  }
+
   function SliderFoco(){
-    const audio = document.querySelector(".audio");
               if(!stateTimer.booleanFoco){                        
                 booleanRef.current = false;
                 const button = document.querySelector(".slider_div button:nth-child(1)")
@@ -28,7 +33,7 @@ function App() {
 
                 element.classList.remove("tampa_with_animation");
                 element.classList.add("tampa_with_animation_reverse");
-                audio.pause();
+                metodosPlayer.Pause();
                 button.classList.remove("button_color_white");
                 button.classList.add("button_color_black");
                 button2.classList.add("button_color_white");
@@ -42,7 +47,6 @@ function App() {
               }               
   }
   function SliderDescanso(){
-    const audio = document.querySelector(".audio");
     if(stateTimer.booleanFoco){     
       booleanRef.current = false;
       const element = document.querySelector(".tampa");
@@ -56,7 +60,7 @@ function App() {
       button.classList.add("button_color_black");
       button1.classList.remove("button_color_black");
       button1.classList.add("button_color_white");
-      audio.pause();
+      metodosPlayer.Pause();
       setTimeout(() =>{
         dispatch({ type: "descanco" });
         clearInterval(ref.current);     
@@ -72,7 +76,7 @@ function App() {
   const [openDialog, setOpenDialog] = useState(false);
   const estadoBotaoDescanco = stateTimer.bDescanco?{display: "inline"}:{display: "none"};
   const [sound, setSound] = useState(toque);
-  
+  const [metodosPlayer, setMetodosPlayer] = useState({Play: null, Pause: null});
   const segundosAtuais = values.minuto * 60 + values.segundo;
   let segundosIniciais = null;
 
@@ -88,9 +92,7 @@ function App() {
 
   if(values.minuto === 0 && values.segundo === 0){
     clearInterval(ref.current);
-    const audio = document.querySelector(".audio");
-    audio.play();
-    audio.loop = true;
+    metodosPlayer.Play();
     ref.current = setInterval(()=>{
       dispatch({ type: "aumentar" });
     }, 1000);
@@ -134,11 +136,10 @@ function App() {
           }}>Iniciar</Button>
 
           <Button onClick={()=>{
-            const audio = document.querySelector(".audio");
             clearInterval(ref.current);
             if(!stateTimer.working){
               dispatch({ type: "resetar" });
-              audio.pause(); 
+              metodosPlayer.Pause();
             }else{
               ref.current = setInterval(() => {
                 setPisca(pisca => !pisca);
@@ -148,10 +149,9 @@ function App() {
           }}>Parar</Button>
 
           <Button onClick={()=>{
-            const audio = document.querySelector(".audio");
              clearInterval(ref.current);
              booleanRef.current = false;
-             audio.pause();
+             metodosPlayer.Pause();
              dispatch({ type: "resetar" });
              setPisca(true);
           }}>Resetar</Button>
@@ -159,7 +159,7 @@ function App() {
           <FaGear onClick={()=> setOpenDialog(!openDialog)} className="configuration"/>
         </div>
         
-        <AudioPlayer src={sound}/>
+        <AudioPlayer getControls={getControls} src={sound}/>
         
         <Dialog setSound={setSound} openDialog={openDialog}  setPisca={setPisca} SliderFoco={SliderFoco} setOpenDialog={setOpenDialog} dispatch={dispatch} stateTimer={stateTimer}
          customStyle={openDialog?{display: "flex"}:{display: "none"}}/>
