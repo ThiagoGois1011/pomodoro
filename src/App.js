@@ -6,6 +6,7 @@ import Button from "./components/Button.js"
 import { FaGear } from "react-icons/fa6";
 import toque from "./assets/audio/despertador.mp3";
 import Dialog from "./components/Dialog.js";
+import AudioPlayer from "./components/Audio.js";
 
 function App() {
 
@@ -158,10 +159,7 @@ function App() {
           <FaGear onClick={()=> setOpenDialog(!openDialog)} className="configuration"/>
         </div>
         
-        <audio controls className="audio">
-        <source src={sound} type="audio/mp3" />
-        seu navegador não suporta HTML5
-        </audio>
+        <AudioPlayer src={sound}/>
         
         <Dialog setSound={setSound} openDialog={openDialog}  setPisca={setPisca} SliderFoco={SliderFoco} setOpenDialog={setOpenDialog} dispatch={dispatch} stateTimer={stateTimer}
          customStyle={openDialog?{display: "flex"}:{display: "none"}}/>
