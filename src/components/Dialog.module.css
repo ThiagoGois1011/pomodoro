@@ -1,0 +1,125 @@
+.dialog{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-y: scroll;
+}
+
+.dialogBackground{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.5;
+}
+
+.dialogContent{
+    background-color: white;
+    position: absolute;
+    width: 60%;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    border-radius: 20px;
+}
+
+.dialogContent h1{
+    margin-left: 20px;
+}
+
+.barraHorizontal{
+    width: 100%;
+    height: 2px;
+    background-color: gray;
+}
+
+.dialogContentInputsDivs{
+    box-sizing: border-box;
+    flex-grow: 2;
+    padding: 20px;
+}
+
+.inputField{
+    display: flex;
+    flex-direction: column;
+}
+
+.inputField label{
+    font-weight: bold;
+    font-style: italic;
+    margin-bottom: 20px;
+    font-size: 1.2em;
+}
+
+.inputField input{
+    font-size: 1.2em;
+    width: 30%;
+    margin-bottom: 20px;
+}
+
+.inputField input:first-child{
+    margin-right: 30px;
+}
+
+.dialogContentButtons{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.dialogContentButtons button{
+    font-size: 1.2em;
+    margin: 10px;
+    padding: 5px;
+}
+
+.salvar{
+    font-size: 1.3em;
+    padding: 10px 20px;
+    background-color: #519872;
+    border: none;
+    color:black;
+    display: flex;
+    align-items: center;
+}
+
+.salvar:hover{
+    background-color: #214130;
+    color: white;
+}
+
+.salvar svg {
+    margin: 5px 5px 5px 0;
+}
+
+.cancelar{
+    font-size: 1.3em;
+    padding: 10px 20px;
+    background-color: #d61616;
+    border: none;
+    color:black;
+    display: flex;
+    align-items: center;
+}
+
+.cancelar:hover{
+    background-color: #790909;
+    color: white;
+}
+
+.cancelar svg {
+    margin: 5px 5px 5px 0;
+}
+
+.musicaTitle{
+    margin-left: 20px;
+    font-size: 1.2;
+}
+
+.musicaInput{
+
+}

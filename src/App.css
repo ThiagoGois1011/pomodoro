@@ -1,6 +1,6 @@
 body{
-    background-color: #ffffff;
-    color: white;
+    background-color: #262626;
+    color: black;
 }
 
 .section_timer{
@@ -8,27 +8,30 @@ body{
     justify-content: center;
     align-items: center;
     height: 100vh;
+    flex-direction: column;
 }
 
 .timer_container{
     width: 60vw;
     height: 90vh;
-    background-color: #4d4e47;
+    background-color: #E2E8CE;
     border-radius: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
+    
 }
 
 .timer_circle{
-    background-image: conic-gradient(#a52222 100% , #22a543 0%);
-    width: 60%;
+    background-image: conic-gradient(#E2E8CE 100% , #243125 0%);
+    width: 40%;
     height: 70%;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: -20px -30px 20px #424242,
+                20px 30px 20px #1d1d1d;
 }
 
 .timer_inner_circle{
@@ -38,7 +41,7 @@ body{
     width: 90%;
     height: 90%;
     border-radius: 50%;
-    background-color: #310909;
+    background-color: #519872;
     flex-direction: column;
 }
 
@@ -47,8 +50,104 @@ body{
     font-size: 6vw;
 }
 .container_buttons{
-    width: 50%;
-    margin-top: 20px;
+    width: 40%;
+    margin-top: 50px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    padding-left: 40px;
 }
+
+.slider_div{
+    background-color: #243125;
+    border-radius: 20px;
+    position: relative;
+    display: flex;
+}
+
+.slider_div button{
+    background-color: transparent;
+    border-radius: 20px;
+    width: 50%;
+    padding: 10px 20px;
+    text-align: start;
+    z-index: 2;
+    border: none;   
+}
+
+.slider_div button:first-child{
+    padding-right: 30px;
+}
+
+.button_color_white{
+    color:white;
+    transition: color 0.4s linear;
+}
+
+.button_color_black{
+    color:black;
+    transition: color 0.4s linear;
+}
+
+.configuration{
+    color: white;
+    font-size: 1.4em;
+    padding: 20px;
+}
+
+.configuration:hover{
+    color: rgb(122, 122, 122);
+}
+
+
+
+.tampa{
+    background-color: #E2E8CE;
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    z-index: 1;
+    content: " a";
+    border-radius: 20px;
+}
+
+.tampa_with_animation{
+    animation: tampa_animation 0.3s linear;
+    animation-fill-mode: forwards;
+}
+
+.tampa_with_animation_reverse{
+    animation: tampa_animation_reverse 0.3s linear;
+    animation-fill-mode: forwards;
+}
+
+@keyframes tampa_animation {
+    from{
+        transform: translateX(0%);
+    }
+
+    to{
+        transform: translateX(100%);
+    }
+}
+
+@keyframes tampa_animation_reverse {
+    from{
+        transform: translateX(100%);
+    }
+
+    to{
+        transform: translateX(0%);
+    }
+}
+
+@keyframes button_animation {
+    from{
+        color: black;
+    }
+
+    to{
+        color: white;
+    }
+}
+

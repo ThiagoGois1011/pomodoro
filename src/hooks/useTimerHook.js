@@ -1,11 +1,12 @@
 import { useReducer } from "react";
 
 
-let InicialState = {timer: "06:00" , minuto: 6, segundo: 0};
-let DescancoTimer = {timer: "05:00" , minuto: 5, segundo: 0};
+let InicialState = {timer: "05:00" , minuto: 5, segundo: 0};
+let DescansoTimer = {timer: "05:00" , minuto: 5, segundo: 0};
 let working = true;
-let bDescanco = false;
-let descansoIniciado = false
+let bDescanso = false;
+let descansoIniciado = false;
+let booleanFoco = true;
 
 
 function reducer(state, action){
@@ -13,7 +14,8 @@ function reducer(state, action){
         case "decremento" :{
             const minuto = state.minuto;
             const segundo = state.segundo;
-            bDescanco = false;
+            bDescanso = false;
+            working = true;
             if(segundo != 0){
                 return {
                     timer: minuto.toString().padStart(2, 0) + ":" + (segundo - 1).toString().padStart(2, 0),
@@ -37,39 +39,35 @@ function reducer(state, action){
         }
         case "resetar":{
             working = true;
-            bDescanco = false;
+            bDescanso = false;
             if(descansoIniciado){
                 console.log("descansoIniciado")
-                return DescancoTimer;
+                return DescansoTimer;
                 
             }else{
                 console.log("invertido")
                 return InicialState;
             }
             
-        }
-        case "editar negativando":{
-            working = false;
-            
-            const objeto = {
-                timer: "- " + (action.campos[0] ).toString().padStart(2, 0) + ":" + (action.campos[1]).toString().padStart(2, 0) ,
-                minuto: action.campos[0],
-                segundo: action.campos[1]
-            };
-            InicialState = objeto;
-            return objeto;
-        }
-        case "descanco":{
+        }case "descanco":{
             working = true;
             descansoIniciado = true;
-            bDescanco = false;
-            return DescancoTimer;
-        }case "aumentar":{
+            bDescanso = false;
+            booleanFoco = false;
+            return DescansoTimer;
+        }case "foco":{
+            working = true;
+            descansoIniciado = false;
+            bDescanso = false;
+            booleanFoco = true;
+            return InicialState;
+        }
+        case "aumentar":{
             const minuto = state.minuto;
             const segundo = state.segundo;
             working = false;
             if(!descansoIniciado){
-                bDescanco = true;
+                bDescanso = true;
             }
             
             if(segundo != 60){
@@ -85,7 +83,18 @@ function reducer(state, action){
                     segundo: 0
                 } 
             }       
-        }default:{
+        }case "editar":{
+            working = true;
+            descansoIniciado = false;
+            bDescanso = false;
+            booleanFoco = true;
+
+            InicialState = action.novoInicialState;
+            DescansoTimer = action.novoDescansoTimer;
+            
+            return InicialState;
+        }
+        default:{
             return{
                 timer: "00:00",
                 minuto: 0,
@@ -101,5 +110,5 @@ function reducer(state, action){
 export default function useTimer(){
     const [state, dispatch] = useReducer(reducer, InicialState);
 
-    return [state, dispatch, {working, InicialState, DescancoTimer, bDescanco, descansoIniciado}];
+    return [state, dispatch, {working, InicialState, DescancoTimer: DescansoTimer, bDescanco: bDescanso, descansoIniciado, booleanFoco}];
 } 
