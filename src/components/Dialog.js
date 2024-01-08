@@ -4,7 +4,8 @@ import { FiCheck } from "react-icons/fi";
 import { MdDoNotDisturb } from "react-icons/md";
 
 
-export default function Dialog({stateTimer, dispatch, customStyle, setOpenDialog, SliderFoco, setPisca, openDialog, setSound}){
+export default function Dialog({stateTimer, dispatch, customStyle, setOpenDialog, SliderFoco, setPisca,
+     openDialog, setSound, IntervalRef, BooleanRef}){
     useEffect(()=>{
         const focoMinutos = document.querySelector(".foco_minutos");
         const focoSegundos = document.querySelector(".foco_segundos");
@@ -34,9 +35,6 @@ export default function Dialog({stateTimer, dispatch, customStyle, setOpenDialog
 
         let timerFoco = valueFocoMinuto.toString().padStart(2, 0) + ":" + valueFocoSegundo.toString().padStart(2, 0);
         let timerDescanso = valueDescansoMinuto.toString().padStart(2, 0) + ":" + valueDescansoSegundo.toString().padStart(2, 0);
-
-        setOpenDialog(false);
-        SliderFoco();
         
         if(valueFocoMinuto === 0 && valueFocoSegundo === 0){
             valueFocoMinuto  = stateTimer.InicialState.minuto;
@@ -59,24 +57,18 @@ export default function Dialog({stateTimer, dispatch, customStyle, setOpenDialog
             dispatch({type:"editar", novoInicialState:{timer:timerFoco, minuto: valueFocoMinuto, segundo: valueFocoSegundo},
             novoDescansoTimer:{timer:timerDescanso, minuto: valueDescansoMinuto, segundo: valueDescansoSegundo }});
             setPisca(true);
+            clearInterval(IntervalRef.current);
+            BooleanRef.current = false;
         }  
         
         const musica = document.getElementById("musicaInput");
-        
-        var fReader = new FileReader();
-        fReader.readAsDataURL(musica.files[0]);
-        fReader.onloadend = function(event){
-            setSound(event.target.result);
-        }
-        //console.log(musica.files[0].path);
-        const MusicaEnvio = async ()=>{
-            //const importMusic = await import("C:\\Users\\thiag\\Desktop\\Inglês\\Musicas\\1. Martin Garrix _ Bebe Rexha - In The Name Of Love ((MP3_70K).mp3");
-            
-            //importMusic.then((resultado)=> {
-               // console.log(resultado.default);
-            //});
-        }
-        //MusicaEnvio();
+        setSound(URL.createObjectURL(musica.files[0]));
+        console.log(JSON.stringify(musica.files[0]));
+        console.log(musica.files[0]);
+        localStorage.setItem("musica", "tetse");
+
+        setOpenDialog(false);
+        SliderFoco();
     }
     return (
     <div className={style.dialog} style={customStyle}>

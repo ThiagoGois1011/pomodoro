@@ -6,7 +6,6 @@ import Button from "./components/Button.js"
 import { FaGear } from "react-icons/fa6";
 import toque from "./assets/audio/despertador.mp3";
 import Dialog from "./components/Dialog.js";
-import AudioPlayer from "./components/Audio.js";
 
 function App() {
 
@@ -18,33 +17,31 @@ function App() {
     event.target.style.backgroundColor = "#E2E8CE";
   }
 
-  
-
-  function getControls(play,pause){
-    setMetodosPlayer({Play: play, Pause: pause});
-  }
-
   function SliderFoco(){
-              if(!stateTimer.booleanFoco){                        
-                booleanRef.current = false;
-                const button = document.querySelector(".slider_div button:nth-child(1)")
-                const button2 = document.querySelector(".slider_div button:nth-child(2)")
-                const element = document.querySelector(".tampa");
+    if(!stateTimer.booleanFoco){                        
+      booleanRef.current = false;
+      const button = document.querySelector(".slider_div button:nth-child(1)")
+      const button2 = document.querySelector(".slider_div button:nth-child(2)")
+      const element = document.querySelector(".tampa");
 
-                element.classList.remove("tampa_with_animation");
-                element.classList.add("tampa_with_animation_reverse");
-                metodosPlayer.Pause();
-                button.classList.remove("button_color_white");
-                button.classList.add("button_color_black");
-                button2.classList.add("button_color_white");
-                button2.classList.remove("button_color_black");
-                
-                setTimeout(() =>{
-                  dispatch({ type: "foco" });
-                  clearInterval(ref.current);     
-                  setPisca(true);
-                }, 300);
-              }               
+      element.classList.remove("tampa_with_animation");
+      element.classList.add("tampa_with_animation_reverse");
+
+      const audio = document.getElementById("tagAudio");
+      audio.pause();
+      audio.currentTime = 0;
+
+      button.classList.remove("button_color_white");
+      button.classList.add("button_color_black");
+      button2.classList.add("button_color_white");
+      button2.classList.remove("button_color_black");
+      
+      setTimeout(() =>{
+        dispatch({ type: "foco" });
+        clearInterval(ref.current);   
+        setPisca(true);
+      }, 300);
+    }               
   }
   function SliderDescanso(){
     if(stateTimer.booleanFoco){     
@@ -60,7 +57,9 @@ function App() {
       button.classList.add("button_color_black");
       button1.classList.remove("button_color_black");
       button1.classList.add("button_color_white");
-      metodosPlayer.Pause();
+      const audio = document.getElementById("tagAudio");
+      audio.pause();
+      audio.currentTime = 0;
       setTimeout(() =>{
         dispatch({ type: "descanco" });
         clearInterval(ref.current);     
@@ -68,6 +67,7 @@ function App() {
       }, 300);
     }   
   }
+  
 
   const [values, dispatch, stateTimer] = useTimer();
   const ref = useRef();
@@ -75,10 +75,19 @@ function App() {
   const [pisca , setPisca] = useState(true);
   const [openDialog, setOpenDialog] = useState(false);
   const estadoBotaoDescanco = stateTimer.bDescanco?{display: "inline"}:{display: "none"};
-  const [sound, setSound] = useState(toque);
-  const [metodosPlayer, setMetodosPlayer] = useState({Play: null, Pause: null});
   const segundosAtuais = values.minuto * 60 + values.segundo;
+  
   let segundosIniciais = null;
+
+  const [sound, setSound] = useState(toque);
+
+  useEffect(()=>{
+    if(localStorage.getItem("musica")){
+      console.log("dentro, dando true")
+      let musica = JSON.parse(localStorage.getItem("musica"));
+      setSound(URL.createObjectURL(musica));
+    }console.log("dentro, dando false")
+  }, []);
 
   if(stateTimer.working && !stateTimer.descansoIniciado){
     segundosIniciais = stateTimer.InicialState.minuto * 60 + stateTimer.InicialState.segundo;
@@ -92,7 +101,8 @@ function App() {
 
   if(values.minuto === 0 && values.segundo === 0){
     clearInterval(ref.current);
-    metodosPlayer.Play();
+    const audio = document.getElementById("tagAudio");
+    audio.play();
     ref.current = setInterval(()=>{
       dispatch({ type: "aumentar" });
     }, 1000);
@@ -139,7 +149,9 @@ function App() {
             clearInterval(ref.current);
             if(!stateTimer.working){
               dispatch({ type: "resetar" });
-              metodosPlayer.Pause();
+              const audio = document.getElementById("tagAudio");
+              audio.pause();
+              audio.currentTime = 0;
             }else{
               ref.current = setInterval(() => {
                 setPisca(pisca => !pisca);
@@ -151,7 +163,9 @@ function App() {
           <Button onClick={()=>{
              clearInterval(ref.current);
              booleanRef.current = false;
-             metodosPlayer.Pause();
+             const audio = document.getElementById("tagAudio");
+             audio.pause();
+             audio.currentTime = 0;
              dispatch({ type: "resetar" });
              setPisca(true);
           }}>Resetar</Button>
@@ -159,9 +173,11 @@ function App() {
           <FaGear onClick={()=> setOpenDialog(!openDialog)} className="configuration"/>
         </div>
         
-        <AudioPlayer getControls={getControls} src={sound}/>
         
-        <Dialog setSound={setSound} openDialog={openDialog}  setPisca={setPisca} SliderFoco={SliderFoco} setOpenDialog={setOpenDialog} dispatch={dispatch} stateTimer={stateTimer}
+        <audio id="tagAudio" loop src={sound}>
+        </audio>
+        
+        <Dialog BooleanRef={booleanRef} IntervalRef={ref} setSound={setSound} openDialog={openDialog}  setPisca={setPisca} SliderFoco={SliderFoco} setOpenDialog={setOpenDialog} dispatch={dispatch} stateTimer={stateTimer}
          customStyle={openDialog?{display: "flex"}:{display: "none"}}/>
         
     </section>

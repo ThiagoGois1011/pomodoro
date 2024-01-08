@@ -41,11 +41,9 @@ function reducer(state, action){
             working = true;
             bDescanso = false;
             if(descansoIniciado){
-                console.log("descansoIniciado")
                 return DescansoTimer;
                 
             }else{
-                console.log("invertido")
                 return InicialState;
             }
             
