@@ -2,7 +2,9 @@ import { useEffect } from "react";
 import style from "./Dialog.module.css";
 import { FiCheck } from "react-icons/fi";
 import { MdDoNotDisturb } from "react-icons/md";
-import { SetData} from "./IndexedDB";
+import { SetData, removerObjeto} from "./IndexedDB";
+import { HiAdjustmentsHorizontal } from "react-icons/hi2";
+import toque from "../assets/audio/despertador.mp3";
 
 
 export default function Dialog({stateTimer, dispatch, customStyle, setOpenDialog, SliderFoco, setPisca,
@@ -21,8 +23,9 @@ export default function Dialog({stateTimer, dispatch, customStyle, setOpenDialog
         descansoSegundos.value = stateTimer.DescancoTimer.segundo;
     }, [openDialog]);
 
-    function metodoSalvar(){
-        const focoMinutos = document.querySelector(".foco_minutos");
+    function metodoControle(salvar){
+        if(salvar){
+            const focoMinutos = document.querySelector(".foco_minutos");
         const focoSegundos = document.querySelector(".foco_segundos");
 
         const descansoMinutos = document.querySelector(".descanso_minutos");
@@ -64,6 +67,9 @@ export default function Dialog({stateTimer, dispatch, customStyle, setOpenDialog
             setPisca(true);
             clearInterval(IntervalRef.current);
             BooleanRef.current = false;
+            const audio = document.getElementById("tagAudio");
+            audio.pause();
+            audio.currentTime = 0;
         }  
         
         const musica = document.getElementById("musicaInput");
@@ -76,7 +82,27 @@ export default function Dialog({stateTimer, dispatch, customStyle, setOpenDialog
             const str = e.target.result;
             SetData(str, 1);          
         };
-        reader.readAsDataURL(musica.files[0]);
+        if(musica.files[0]){
+            reader.readAsDataURL(musica.files[0]);
+        }
+        }else{
+            removerObjeto(1);
+            removerObjeto(2);
+            removerObjeto(3);
+
+            if(!stateTimer.booleanFoco){  
+                setTimeout(()=> dispatch({type:"resetarPadrao"}), 300);             
+            }else{
+                dispatch({type:"resetarPadrao"});
+                setPisca(true);
+                clearInterval(IntervalRef.current);
+                BooleanRef.current = false;
+                const audio = document.getElementById("tagAudio");
+                audio.pause();
+                audio.currentTime = 0;
+            } 
+            setSound(toque); 
+        }
         
         setOpenDialog(false);
         SliderFoco();
@@ -107,8 +133,9 @@ export default function Dialog({stateTimer, dispatch, customStyle, setOpenDialog
       <input className={style.musicaInput} id="musicaInput" type="file" />
       <div className={style.barraHorizontal}/>
       <div className={style.dialogContentButtons}>
+        <button onClick={()=>{metodoControle(false)}} className={style.resetar}><HiAdjustmentsHorizontal/>Resetar</button>
         <button className={style.cancelar} onClick={()=>setOpenDialog(false)}> <MdDoNotDisturb/>  Cancelar</button>
-        <button className={style.salvar} onClick={metodoSalvar}> <FiCheck/> Salvar</button>
+        <button className={style.salvar} onClick={()=>{metodoControle(true)}}> <FiCheck/> Salvar</button>
       </div>
 
     </div>

@@ -1,7 +1,7 @@
 import { useReducer } from "react";
 
 
-let InicialState = {timer: "05:00" , minuto: 5, segundo: 0};
+let InicialState = {timer: "25:00" , minuto: 25, segundo: 0};
 let DescansoTimer = {timer: "05:00" , minuto: 5, segundo: 0};
 let working = true;
 let bDescanso = false;
@@ -89,6 +89,16 @@ function reducer(state, action){
 
             InicialState = action.novoInicialState;
             DescansoTimer = action.novoDescansoTimer;
+            
+            return InicialState;
+        }case "resetarPadrao":{
+            working = true;
+            descansoIniciado = false;
+            bDescanso = false;
+            booleanFoco = true;
+
+            InicialState =  {timer: "25:00" , minuto: 25, segundo: 0};
+            DescansoTimer = {timer: "05:00" , minuto: 5, segundo: 0};
             
             return InicialState;
         }

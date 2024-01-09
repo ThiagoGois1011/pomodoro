@@ -80,5 +80,22 @@ function criaDB(){
     };
 }
 
-export {GetData , SetData, criaDB};
+function removerObjeto(chaveParaRemover) {
+    const request = indexedDB.open('MeuDB', 1);
+  
+    request.onsuccess = function(event) {
+      const db = event.target.result;
+  
+      const transaction = db.transaction(['meuArmazenamento'], 'readwrite');
+      const objectStore = transaction.objectStore('meuArmazenamento');
+  
+      objectStore.delete(chaveParaRemover);
+  
+      transaction.oncomplete = function() {
+        db.close();
+      };
+    };
+  }
+
+export {GetData , SetData, criaDB, removerObjeto};
   

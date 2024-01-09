@@ -72,19 +72,21 @@
 }
 
 .dialogContentButtons button{
-    font-size: 1.2em;
-    margin: 10px;
-    padding: 5px;
-}
-
-.salvar{
     font-size: 1.3em;
-    padding: 10px 20px;
-    background-color: #519872;
+    margin: 10px;
+    padding: 5px 10px;
     border: none;
     color:black;
     display: flex;
     align-items: center;
+}
+
+.dialogContentButtons svg{
+    margin: 5px 5px 5px 0;
+}
+
+.salvar{
+    background-color: #519872;  
 }
 
 .salvar:hover{
@@ -92,18 +94,8 @@
     color: white;
 }
 
-.salvar svg {
-    margin: 5px 5px 5px 0;
-}
-
 .cancelar{
-    font-size: 1.3em;
-    padding: 10px 20px;
     background-color: #d61616;
-    border: none;
-    color:black;
-    display: flex;
-    align-items: center;
 }
 
 .cancelar:hover{
@@ -111,8 +103,13 @@
     color: white;
 }
 
-.cancelar svg {
-    margin: 5px 5px 5px 0;
+.resetar{
+    background-color: #979577;
+}
+
+.resetar:hover{
+    background-color: #4b4932;
+    color: white;
 }
 
 .musicaTitle{
