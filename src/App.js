@@ -6,6 +6,7 @@ import Button from "./components/Button.js"
 import { FaGear } from "react-icons/fa6";
 import toque from "./assets/audio/despertador.mp3";
 import Dialog from "./components/Dialog.js";
+import {GetData, criaDB} from "./components/IndexedDB";
 
 function App() {
 
@@ -82,11 +83,26 @@ function App() {
   const [sound, setSound] = useState(toque);
 
   useEffect(()=>{
-    if(localStorage.getItem("musica")){
-      console.log("dentro, dando true")
-      let musica = JSON.parse(localStorage.getItem("musica"));
-      setSound(URL.createObjectURL(musica));
-    }console.log("dentro, dando false")
+    criaDB();
+    GetData(1)
+    .then((valorRecuperado) => {
+      setSound(valorRecuperado.conteudo);
+    }).catch((e) => console.log())
+
+    GetData(2)
+    .then((valorRecuperado) => {
+      const novoInicialState = valorRecuperado.conteudo;
+      GetData(3)
+      .then((valorRecuperado1) => {     
+        const novoDescansoTimer = valorRecuperado1.conteudo;
+        
+        dispatch({type:"editar", novoInicialState,
+        novoDescansoTimer});
+    })
+    
+    .catch((e) => console.log())
+    }).catch((e) => console.log())
+
   }, []);
 
   if(stateTimer.working && !stateTimer.descansoIniciado){

@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import style from "./Dialog.module.css";
 import { FiCheck } from "react-icons/fi";
 import { MdDoNotDisturb } from "react-icons/md";
+import { SetData} from "./IndexedDB";
 
 
 export default function Dialog({stateTimer, dispatch, customStyle, setOpenDialog, SliderFoco, setPisca,
@@ -41,6 +42,8 @@ export default function Dialog({stateTimer, dispatch, customStyle, setOpenDialog
             valueFocoSegundo = stateTimer.InicialState.segundo;
             
             timerFoco =  stateTimer.InicialState.timer;
+        }else{
+            SetData({timer:timerFoco, minuto: valueFocoMinuto, segundo: valueFocoSegundo}, 2);
         }
 
         if(valueDescansoMinuto === 0 && valueDescansoSegundo === 0){
@@ -48,6 +51,8 @@ export default function Dialog({stateTimer, dispatch, customStyle, setOpenDialog
             valueDescansoSegundo = stateTimer.DescancoTimer.segundo;
 
             timerDescanso = stateTimer.DescancoTimer.timer;
+        }else{
+            SetData({timer:timerDescanso, minuto: valueDescansoMinuto, segundo: valueDescansoSegundo }, 3);  
         }
 
         if(!stateTimer.booleanFoco){  
@@ -62,11 +67,17 @@ export default function Dialog({stateTimer, dispatch, customStyle, setOpenDialog
         }  
         
         const musica = document.getElementById("musicaInput");
-        setSound(URL.createObjectURL(musica.files[0]));
-        console.log(JSON.stringify(musica.files[0]));
-        console.log(musica.files[0]);
-        localStorage.setItem("musica", "tetse");
-
+        
+        
+        const reader = new FileReader();
+        
+        reader.onload = function (e) {
+            setSound(e.target.result);
+            const str = e.target.result;
+            SetData(str, 1);          
+        };
+        reader.readAsDataURL(musica.files[0]);
+        
         setOpenDialog(false);
         SliderFoco();
     }
