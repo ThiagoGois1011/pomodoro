@@ -129,9 +129,7 @@ function App() {
   return (
     <section className="section_timer">
 
-      
         <div className="slider_div" style={{marginBottom: "20px"}}>
-          
             <button className="button_color_black" onClick={()=>{
               SliderFoco();  
             }}>Foco</button>
@@ -144,7 +142,6 @@ function App() {
         <div className="timer_circle" style={{backgroundImage: `conic-gradient(#E2E8CE ${porcentagem1? porcentagem1: 0}% , #243125 0%)`}}>
           <div className="timer_inner_circle">
             <p className="timer_inner_value" style={{opacity : pisca?"1":"0"}}>{values.timer}</p>
-
             <Button styleC={{...estadoBotaoDescanco, backgroundColor: "#E2E8CE"}} onMouseOver={DescancoAnimation}  
             onMouseOut={DescancoAnimationReverse} onClick={()=>SliderDescanso()}>Descanço</Button>
           </div>
@@ -188,7 +185,6 @@ function App() {
 
           <FaGear onClick={()=> setOpenDialog(!openDialog)} className="configuration"/>
         </div>
-        
         
         <audio id="tagAudio" loop src={sound}>
         </audio>

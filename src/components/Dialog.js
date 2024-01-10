@@ -25,7 +25,7 @@ export default function Dialog({stateTimer, dispatch, customStyle, setOpenDialog
 
     function metodoControle(salvar){
         if(salvar){
-            const focoMinutos = document.querySelector(".foco_minutos");
+        const focoMinutos = document.querySelector(".foco_minutos");
         const focoSegundos = document.querySelector(".foco_segundos");
 
         const descansoMinutos = document.querySelector(".descanso_minutos");
