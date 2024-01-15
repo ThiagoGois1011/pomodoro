@@ -29,6 +29,10 @@
 </ol>
 </p>
 
+## Projeto🏎️
+
+Acesse a página do projeto aqui: [Pomodoro](https://thiagogois1011.github.io/pomodoro/)
+
 ## Contanto
 Meu <a href="https://www.linkedin.com/in/thiago-gois-ba26b1238/" target="_blank">Linkedin</a>.
 
