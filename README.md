@@ -30,5 +30,5 @@
 </p>
 
 ## Contanto
+Meu <a href="https://www.linkedin.com/in/thiago-gois-ba26b1238/" target="_blank">Linkedin</a>.
 
-Meu [Linkedin](https://www.linkedin.com/in/thiago-gois-ba26b1238/).
