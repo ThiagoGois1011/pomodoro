@@ -26,6 +26,7 @@
     <li>JavaScript</li>
     <li>IndexedDB</li>
     <li>FileReader</li>
+    <li>Web Design Responsivo</li>
 </ol>
 </p>
 
