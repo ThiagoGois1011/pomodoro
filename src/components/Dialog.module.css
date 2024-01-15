@@ -6,7 +6,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow-y: scroll;
 }
 
 .dialogBackground{
@@ -24,7 +23,6 @@
     height: 70%;
     display: flex;
     flex-direction: column;
-    justify-content: stretch;
     border-radius: 20px;
 }
 
@@ -36,6 +34,7 @@
     width: 100%;
     height: 2px;
     background-color: gray;
+    flex-shrink: 0;
 }
 
 .dialogContentInputsDivs{
@@ -114,11 +113,87 @@
 
 .musicaTitle{
     margin-left: 20px;
-    font-size: 1.2;
+    font-size: 1.5em;
 }
 
 .musicaInput{
-    margin: 0 0 20px 20px;
+    padding: 20px;
     font-weight: bold;
+
+}
+
+@media (max-width: 850px) {
+
+    .dialog{
+        font-size: 14px;
+    }
+    .dialogContentButtons{
+        justify-content: space-between;
+    }
+
+    .dialogContent{
+        width: 80%;
+        height: 70%;
+    }
+}
+
+@media (max-width: 520px) {
+
+    .inputField input{
+        width: 40%;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .dialogContent{
+        overflow: auto;
+    }
+    .dialogContentButtons{
+        flex-direction: column;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .musicaInput{
+        padding: 20px;
+        font-weight: bold;
+        flex-shrink: 0;
+    }
+
+    .dialogContent::-webkit-scrollbar {
+        display: none;
+    }
+
+    .dialogContentButtons button{
+        font-size: 1.5em;
+        justify-content: center;
+    }
+
+    .dialogContentButtons .salvar{
+        margin: 10px 10px 20px 10px;
+    }
+}
+
+@media (max-width: 350px) {
+
+    .dialog{
+        font-size: 12px;
+    }
+
+    .inputFiel div{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .inputField input{
+        width: 80%;
+    }
+
+    .musicaInput{
+        font-size: 12px;
+        
+    }
+
 }
 

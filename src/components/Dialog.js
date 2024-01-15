@@ -19,8 +19,8 @@ export default function Dialog({stateTimer, dispatch, customStyle, setOpenDialog
         focoMinutos.value = stateTimer.InicialState.minuto;
         focoSegundos.value = stateTimer.InicialState.segundo;
 
-        descansoMinutos.value = stateTimer.DescancoTimer.minuto;
-        descansoSegundos.value = stateTimer.DescancoTimer.segundo;
+        descansoMinutos.value = stateTimer.DescansoTimer.minuto;
+        descansoSegundos.value = stateTimer.DescansoTimer.segundo;
     }, [openDialog]);
 
     function metodoControle(salvar){
@@ -50,10 +50,10 @@ export default function Dialog({stateTimer, dispatch, customStyle, setOpenDialog
         }
 
         if(valueDescansoMinuto === 0 && valueDescansoSegundo === 0){
-            valueDescansoMinuto  = stateTimer.DescancoTimer.minuto;
-            valueDescansoSegundo = stateTimer.DescancoTimer.segundo;
+            valueDescansoMinuto  = stateTimer.DescansoTimer.minuto;
+            valueDescansoSegundo = stateTimer.DescansoTimer.segundo;
 
-            timerDescanso = stateTimer.DescancoTimer.timer;
+            timerDescanso = stateTimer.DescansoTimer.timer;
         }else{
             SetData({timer:timerDescanso, minuto: valueDescansoMinuto, segundo: valueDescansoSegundo }, 3);  
         }

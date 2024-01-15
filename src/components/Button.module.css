@@ -10,3 +10,9 @@
     background-color: #214130;
     color: white;
 }
+
+@media (max-width:390px){
+    .Button{
+        padding: 8px 15px;
+    }
+}

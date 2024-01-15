@@ -6,15 +6,15 @@ import Button from "./components/Button.js"
 import { FaGear } from "react-icons/fa6";
 import toque from "./assets/audio/despertador.mp3";
 import Dialog from "./components/Dialog.js";
-import {GetData, criaDB} from "./components/IndexedDB";
+import {GetData, criaDB} from "./components/IndexedDB.js";
 
 function App() {
 
-  function DescancoAnimation(event){
+  function DescansoAnimation(event){
     event.target.style.backgroundColor = "#214130";
   }
 
-  function DescancoAnimationReverse(event){
+  function DescansoAnimationReverse(event){
     event.target.style.backgroundColor = "#E2E8CE";
   }
 
@@ -62,7 +62,7 @@ function App() {
       audio.pause();
       audio.currentTime = 0;
       setTimeout(() =>{
-        dispatch({ type: "descanco" });
+        dispatch({ type: "descanso" });
         clearInterval(ref.current);     
         setPisca(true);
       }, 300);
@@ -75,7 +75,7 @@ function App() {
   const booleanRef = useRef(false);
   const [pisca , setPisca] = useState(true);
   const [openDialog, setOpenDialog] = useState(false);
-  const estadoBotaoDescanco = stateTimer.bDescanco?{display: "inline"}:{display: "none"};
+  const estadoBotaoDescanso = stateTimer.bDescanso?{display: "inline"}:{display: "none"};
   const segundosAtuais = values.minuto * 60 + values.segundo;
   
   let segundosIniciais = null;
@@ -108,7 +108,7 @@ function App() {
   if(stateTimer.working && !stateTimer.descansoIniciado){
     segundosIniciais = stateTimer.InicialState.minuto * 60 + stateTimer.InicialState.segundo;
   }else if(stateTimer.working && stateTimer.descansoIniciado){
-    segundosIniciais = stateTimer.DescancoTimer.minuto * 60 + stateTimer.DescancoTimer.segundo;
+    segundosIniciais = stateTimer.DescansoTimer.minuto * 60 + stateTimer.DescansoTimer.segundo;
   }
   else{
     segundosIniciais = 0;
@@ -121,7 +121,7 @@ function App() {
     audio.play();
     ref.current = setInterval(()=>{
       dispatch({ type: "aumentar" });
-    }, 1000);
+    }, 10);
     
   }
   
@@ -135,15 +135,15 @@ function App() {
             }}>Foco</button>
             <button className="button_color_white"  onClick={()=>{
               SliderDescanso();
-            }}>Descanço</button>
+            }}>Descanso</button>
             <div className="tampa"></div>
         </div>
         
         <div className="timer_circle" style={{backgroundImage: `conic-gradient(#E2E8CE ${porcentagem1? porcentagem1: 0}% , #243125 0%)`}}>
           <div className="timer_inner_circle">
             <p className="timer_inner_value" style={{opacity : pisca?"1":"0"}}>{values.timer}</p>
-            <Button styleC={{...estadoBotaoDescanco, backgroundColor: "#E2E8CE"}} onMouseOver={DescancoAnimation}  
-            onMouseOut={DescancoAnimationReverse} onClick={()=>SliderDescanso()}>Descanço</Button>
+            <Button styleC={{...estadoBotaoDescanso, backgroundColor: "#E2E8CE"}} onMouseOver={DescansoAnimation}  
+            onMouseOut={DescansoAnimationReverse} onClick={()=>SliderDescanso()}>Descanso</Button>
           </div>
         </div>
         <div className="container_buttons">

@@ -47,7 +47,7 @@ function reducer(state, action){
                 return InicialState;
             }
             
-        }case "descanco":{
+        }case "descanso":{
             working = true;
             descansoIniciado = true;
             bDescanso = false;
@@ -118,5 +118,5 @@ function reducer(state, action){
 export default function useTimer(){
     const [state, dispatch] = useReducer(reducer, InicialState);
 
-    return [state, dispatch, {working, InicialState, DescancoTimer: DescansoTimer, bDescanco: bDescanso, descansoIniciado, booleanFoco}];
+    return [state, dispatch, {working, InicialState, DescansoTimer: DescansoTimer, bDescanso: bDescanso, descansoIniciado, booleanFoco}];
 } 
