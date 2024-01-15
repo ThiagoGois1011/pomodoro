@@ -121,7 +121,7 @@ function App() {
     audio.play();
     ref.current = setInterval(()=>{
       dispatch({ type: "aumentar" });
-    }, 10);
+    }, 1000);
     
   }
   
@@ -154,7 +154,7 @@ function App() {
               booleanRef.current = !booleanRef.current;
               ref.current = setInterval(() => {               
               dispatch({ type: "decremento" });                      
-               }, 10);
+               }, 1000);
             }
           }}>Iniciar</Button>
 
