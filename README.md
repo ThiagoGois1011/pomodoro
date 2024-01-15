@@ -10,18 +10,24 @@
 
 ## Tecnologias e Técnicas Utilizadas.💻
 
-1. ReactJs
-    * useReducer
-    * useState
-    * useEffect
-    * useRef
-    * Custom Hook
-    * Components
-2. CSS
-    * CSS module
-3. JavaScript
-4. IndexedDB
-5. FileReader
+<p translate="no">
+<ol>
+    <li>ReactJs</li>
+    <ul>
+    <li>useReducer</li>
+    <li>useState</li>
+    <li>useEffect</li>
+    <li>useRef</li>
+    <li>Custom Hook</li>
+    <li>Components</li>
+    </ul>
+    <li>CSS</li>
+    <ul><li>CSS Module</li></ul>
+    <li>JavaScript</li>
+    <li>IndexedDB</li>
+    <li>FileReader</li>
+</ol>
+</p>
 
 ## Contanto
 
