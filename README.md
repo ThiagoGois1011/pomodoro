@@ -1,6 +1,6 @@
 <h1 align="center">Temporizador Pomodoro</h1>
 
-<img align="center" src="https://github.com/ThiagoGois1011/pomodoro/assets/104660897/ea23829e-2523-456e-8a8f-810d5af9285c" alt="print do temporizador pomodoro"/>
+<img style="margin-right: auto; margin-left: auto;" src="https://github.com/ThiagoGois1011/pomodoro/assets/104660897/ea23829e-2523-456e-8a8f-810d5af9285c" alt="print do temporizador pomodoro"/>
 
 ## O que é Pomodoro? 🔎
 
